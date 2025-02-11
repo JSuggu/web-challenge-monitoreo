@@ -1,0 +1,52 @@
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    color: #fff;
+}
+
+.info-container {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    z-index: 1;
+    width: 50%;
+    gap: 1rem;
+}
+
+.info-container h2 {
+    font-size: 3rem;
+    font-weight: 600;
+}
+
+.info-container p {
+    line-height: 1.8;
+}
+
+.back-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.7;
+}
+
+.front-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    opacity: 0.9;
+}
+
+.functionalities h4 {
+    font-weight: 600;
+}
+

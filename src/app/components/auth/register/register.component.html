@@ -1,0 +1,71 @@
+<app-info [currentRoute]="currentRoute"></app-info>
+<div class="auth-container">
+    <section class="form-container">
+        <div class="title-container">
+            <h1>Portal de Monitoreo</h1>
+            <h2>Registrarse</h2>
+        </div>
+        <form *ngIf="registerForm" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="input-container">
+                <label for="username"></label>
+                <input type="text" id="username" name="username" formControlName="username" placeholder="Username">
+                <div *ngIf="username?.invalid && username?.touched">
+                    <section *ngIf="username?.errors?.['required']">
+                        <span class="error-message"> El username es requerido</span>
+                    </section>
+                    <section *ngIf="username?.errors?.['minLength'] || username?.errors?.['maxLength']">
+                        <span class="error-message"> El username tiene que tener entre 6 y 30 caracteres</span>
+                    </section>
+                </div>
+            </div>
+    
+            <div class="input-container">
+                <label for="email"></label>
+                <input type="email" id="email" name="email" formControlName="email" placeholder="Email">
+                <div *ngIf="email?.invalid && email?.touched">
+                    <section *ngIf="email?.errors?.['required']">
+                        <span class="error-message"> El email es requerido</span>
+                    </section>
+                    <section *ngIf="email?.errors?.['email']">
+                        <span class="error-message"> Debes ingresar un email valido</span>
+                    </section>
+                </div>
+            </div>
+
+            <div class="input-container">
+                <label for="password"></label>
+                <input type="password" id="password" name="password" formControlName="password" placeholder="Password">
+                <div *ngIf="password?.invalid && password?.touched">
+                    <section *ngIf="password?.errors?.['required']">
+                        <span class="error-message"> Debes escribir una constraseña</span>
+                    </section>
+                    <section *ngIf="password?.errors?.['minLength']">
+                        <span class="error-message"> La contraseña debe tener un minimo de 8 caracteres</span>
+                    </section>
+                </div>
+            </div>
+
+            <div class="input-container">
+                <label for="confirmPassword"></label>
+                <input type="password" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword" placeholder="Repetir contraseña">
+                <div *ngIf="registerForm?.errors && confirmPassword?.touched">
+                    <section *ngIf="registerForm?.errors?.['passwordMismatch']">
+                        <span class="error-message"> Las contraseñas deben ser iguales</span>
+                    </section>
+                </div>
+            </div>
+            
+            <div class="submit-container">
+                <span></span>
+                <button class="submit-button" type="submit" [disabled]="!registerForm.valid">Registrarse</button>
+            </div>
+        </form>
+        <div class="info-extra">
+            <span>Protegido por reCaptcha y sujeto a la <a href="#">Politica de privacidad y Condiciones</a></span>
+            <section>
+                <span>¿Ya tienes una cuenta cuenta?</span>
+                <a [routerLink]="['/auth/login']">Iniciar sesión</a>
+            </section>
+        </div>
+    </section>
+</div>

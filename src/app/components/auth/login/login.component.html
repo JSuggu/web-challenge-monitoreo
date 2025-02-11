@@ -1,0 +1,42 @@
+<app-info [currentRoute]="currentRoute"></app-info>
+<div class="auth-container">
+    <section class="form-container">
+        <div class="title-container">
+            <h1>Portal de Monitoreo</h1>
+            <h2>Iniciar Sesión</h2>
+        </div>
+        <form *ngIf="loginForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="input-container">
+                <label for="username"></label>
+                <input type="text" id="username" name="username" formControlName="username" placeholder="Username">
+                <div *ngIf="username?.invalid && username?.touched">
+                    <section *ngIf="username?.errors?.['required']">
+                        <span class="error-message"> El username es requerido</span>
+                    </section>
+                </div>
+            </div>
+
+            <div class="input-container">
+                <label for="password"></label>
+                <input type="password" id="password" name="password" formControlName="password" placeholder="Password">
+                <div *ngIf="password?.invalid && password?.touched">
+                    <section *ngIf="password?.errors?.['required']">
+                        <span class="error-message"> Debes escribir una constraseña</span>
+                    </section>
+                </div>
+            </div>
+            
+            <div class="submit-container">
+                <a>¿Olvidaste tu constraseña?</a>
+                <button class="submit-button" type="submit" [disabled]="!loginForm.valid">Iniciar sesion</button>
+            </div>
+        </form>
+        <div class="info-extra">
+            <span>Protegido por reCaptcha y sujeto a la <a href="#">Politica de privacidad y Condiciones</a></span>
+            <section>
+                <span>¿No tienes una cuenta cuenta?</span>
+                <a [routerLink]="['/auth/register']">Registrarse</a>
+            </section>
+        </div>
+    </section>  
+</div>
