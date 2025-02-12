@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
+import { MonitoringLayoutComponent } from './components/layouts/monitoring-layout/monitoring-layout.component';
 
 export const routes: Routes = [
     {path: '', component: LoginComponent},
@@ -10,6 +11,8 @@ export const routes: Routes = [
             {path: "login",component: LoginComponent},
             {path: "register",component: RegisterComponent}
         ]
-        
+    },
+    {
+        path: 'app', component: MonitoringLayoutComponent
     }
 ];
