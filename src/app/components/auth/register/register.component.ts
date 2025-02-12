@@ -5,10 +5,12 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { first } from 'rxjs';
 import { RequestService } from '../../../services/request/request.service';
+import { AlertCardComponent } from '../../cards/alert/alert-card.component';
+
 
 @Component({
   selector: 'app-register',
-  imports: [InfoComponent, FormsModule, ReactiveFormsModule, NgIf, RouterModule],
+  imports: [InfoComponent, AlertCardComponent, FormsModule, ReactiveFormsModule, NgIf, RouterModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -16,6 +18,8 @@ export class RegisterComponent {
     currentRoute!: string;
     registerForm!: FormGroup;
     requestService = inject(RequestService);
+    alertMessage!: string;
+    showAlert: boolean = false;
   
     constructor(private route :ActivatedRoute){}
   
@@ -35,7 +39,15 @@ export class RegisterComponent {
     onSubmit(){
       this.requestService.registerEndpoint(this.registerForm.value).subscribe(data => {
         const jsonResponse = JSON.parse(JSON.stringify(data));
+        this.alertMessage = jsonResponse.message;
+        this.showAlert = true;
+      }, error => {
+        this.alertMessage = JSON.parse(JSON.stringify(error));
       });
+    }
+
+    onCloseAlert() {
+      this.showAlert = false;
     }
 
     private passwordMatchValidator(control: AbstractControl): ValidationErrors | null{

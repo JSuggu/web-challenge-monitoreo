@@ -3,12 +3,13 @@
 
 :root {
     --main-color: #33A3AA;
+    --hover-color: #2f979e;
     --icon-color: #FFB84B;
 }
 
 html {
     font-size: 14px;
-  }
+}
 
 * {
     margin: 0;
@@ -98,6 +99,7 @@ input:focus {
 
 .submit-button:hover {
     cursor: pointer;
+    background-color: var(--hover-color);
 }
 
 .info-extra {

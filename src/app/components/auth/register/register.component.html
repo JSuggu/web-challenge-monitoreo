@@ -69,3 +69,4 @@
         </div>
     </section>
 </div>
+<app-alert-card *ngIf="showAlert" [message]="alertMessage" (closeAlert)="onCloseAlert()"></app-alert-card>
