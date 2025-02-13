@@ -1,7 +1,8 @@
 :host {
     display: flex;
     width: 100%;
-    height: 100vh;
+    min-width: 116rem;
+    min-height: 100vh;
     background-color: var(--main-color-ligth);
 }
 
@@ -15,8 +16,8 @@ app-navbar {
     display: flex;
     flex-direction: column;
     width: 95%;
-    padding-left: 3rem;
-    padding-right: 3rem;
+    padding-left: 10rem;
+    padding-right: 10rem;
 }
 
 app-header {
@@ -25,5 +26,13 @@ app-header {
     height: 6.2rem;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
 }

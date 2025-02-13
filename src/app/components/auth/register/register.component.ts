@@ -5,7 +5,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { first } from 'rxjs';
 import { RequestService } from '../../../services/request/request.service';
-import { AlertCardComponent } from '../../cards/alert/alert-card.component';
+import { AlertCardComponent } from '../../cards/alert-card/alert-card.component';
 
 
 @Component({

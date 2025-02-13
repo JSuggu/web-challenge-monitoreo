@@ -1,0 +1,22 @@
+<div *ngIf="sensor" class="sensor">
+    <section style="display: flex; flex-direction: column;">
+        <h4>{{sensor.type.name}}</h4>
+        <div style="gap: 5rem;">
+            <section>
+                <img src="">
+                <span>{{sensor.readings}}</span>
+            </section>
+            <section>
+                <img src="" >
+                <span>{{sensor.averageAlerts}}</span>
+            </section>
+            <section>
+                <img src="">
+                <span>{{sensor.redAlerts}}</span>
+            </section>
+        </div>
+    </section>
+    <section class="bg-image">
+        <img src={{image}}>
+    </section>
+</div>

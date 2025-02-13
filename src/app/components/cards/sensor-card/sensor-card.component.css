@@ -1,0 +1,30 @@
+.sensor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 2rem 2rem 2rem 2rem;
+    border-radius: 1rem;
+}
+
+.sensor div {
+    display: flex;
+    gap: 1rem;
+}
+
+.bg-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-color-ligth);
+    width: 5rem;
+    height: 5rem;
+    border-radius: 100%;
+}
+
+.sensor img {
+    width: 2rem;
+}
+
+
+

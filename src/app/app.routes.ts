@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { MonitoringLayoutComponent } from './components/layouts/monitoring-layout/monitoring-layout.component';
+import { MonitoringComponent } from './components/monitoring/monitoring.component';
 
 export const routes: Routes = [
     {path: '', component: LoginComponent},
@@ -13,6 +14,9 @@ export const routes: Routes = [
         ]
     },
     {
-        path: 'app', component: MonitoringLayoutComponent
+        path: 'app', component: MonitoringLayoutComponent,
+        children: [
+            {path: 'plants', component: MonitoringComponent}
+        ]
     }
 ];

@@ -1,0 +1,63 @@
+:host {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 1rem;
+}
+
+.total-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10rem;
+}
+
+.data {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.total-data img{
+    width: 3rem;
+}
+
+.readings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-color-ligth);
+    width: 5rem;
+    height: 5rem;
+    border-radius: 100%;
+}
+
+.averageAlerts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fcfdb1;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 100%;
+}   
+
+.redAlerts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: hsl(0, 93%, 84%);
+    width: 5rem;
+    height: 5rem;
+    border-radius: 100%;
+}
+
+.disabled {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffd3a1;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 100%;
+}
+
