@@ -69,6 +69,12 @@
     text-align: left;
 }
 
+.table-section thead img {
+    width: 1rem;
+    vertical-align: middle;
+}
+
+
 tr.selected {
     background-color: var(--main-color-ligth);
     transition: background-color 0.1s;
@@ -80,7 +86,7 @@ tr.selected button {
     color: var(--main-color);
 }
 
-.table-section img{
+.table-section tbody img{
     width: 1rem;
 }
 

@@ -1,5 +1,5 @@
-<div class="total-data-container" *ngIf="totalData.length === 4">
-    <app-total-card  *ngFor="let item of totalData" [key]="item.key" [title]="item.title" [value]="item.value" [imgSrc]="item.img"></app-total-card>
+<div class="total-data-container" *ngIf="globalData?.length === 4">
+    <app-total-card  *ngFor="let item of globalData" [key]="item.key" [title]="item.title" [value]="item.value" [imgSrc]="item.img"></app-total-card>
 </div>
 <div class="plants-container" ngSkipHydratation>
     <section class="table-header">
@@ -13,18 +13,18 @@
             <tr>
                 <th>País</th>
                 <th>Nombre de planta</th>
-                <th><!--<img src="assets/images/alerts/ok.svg">--> Lecturas ok</th>
-                <th><!--<img src="assets/images/alerts/alert.svg">--> Alertas medias</th>
-                <th><!--<img src="assets/images/alerts/danger.svg">--> Alertas rojas</th>
+                <th><img src="assets/images/alerts/ok.svg"> Lecturas ok</th>
+                <th><img src="assets/images/alerts/alert.svg"> Alertas medias</th>
+                <th><img src="assets/images/alerts/danger.svg"> Alertas rojas</th>
             </tr>
         </thead>
-        <tbody *ngIf="plants">
+        <tbody *ngIf="plants && totalSumPlants">
             <tr *ngFor="let plant of plants; let i = index" [ngClass]="{'selected': selectedRow === i}">
                 <td>{{ plant.name }}</td>
                 <td>{{ plant.country }}</td>
-                <td>{{ readings }}</td>
-                <td>{{ averageAlerts }}</td>
-                <td>{{ redAlerts }}</td>
+                <td>{{ totalSumPlants[i].totalReadings }}</td>
+                <td>{{ totalSumPlants[i].totalAverageAlerts }}</td>
+                <td>{{ totalSumPlants[i].totalRedAlerts }}</td>
                 <td><button (click)="selectRow(i)">
                     {{ selectedRow === i ? 'Dejar de ver' : 'Ver planta' }}
                 </button></td>
@@ -37,6 +37,6 @@
     <h3>Monitoreo por plantas</h3>
     <h4>{{selectedPlant.country}}</h4>
     <section class="sensors-grid">
-        <app-sensor-card *ngFor="let sen of selectedPlant.sensorsList; let i = index" [image]="sensorsImage[i]" [sensor]="sen"></app-sensor-card>
+        <app-sensor-card *ngFor="let sen of selectedPlant.sensors; let i = index" [image]="sensorsImage[i]" [sensor]="sen"></app-sensor-card>
     </section>
 </div>

@@ -16,8 +16,8 @@ app-navbar {
     display: flex;
     flex-direction: column;
     width: 95%;
-    padding-left: 10rem;
-    padding-right: 10rem;
+    padding-left: 8rem;
+    padding-right: 8rem;
 }
 
 app-header {

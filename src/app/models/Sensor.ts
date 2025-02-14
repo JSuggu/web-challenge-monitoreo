@@ -1,10 +1,10 @@
 export interface Sensor {
     id: number,
-    readings: number,
+    reading: number,
     averageAlerts: number,
     redAlerts: number,
     enabled: boolean,
-    type: SensorType
+    sensorType: SensorType
 }
 
 export interface SensorType {
