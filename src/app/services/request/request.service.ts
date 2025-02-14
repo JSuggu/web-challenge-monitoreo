@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Login, LoginResponse, Register } from '../../models/auth.interface';
 import { Observable } from 'rxjs';
 import { Plant } from '../../models/Plant';
+import { CreatePlant } from '../../models/request.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class RequestService {
   http = inject(HttpClient);
   private urlBase = "http://localhost:8080/api";
   
-  registerEndpoint(registerData: Register){
+  register(registerData: Register){
     const endpoint = "/auth/register";
     return this.http.post(
       this.urlBase+endpoint,
@@ -22,7 +23,7 @@ export class RequestService {
     );
   }
 
-  loginEndpoint(loginData: Login) : Observable<LoginResponse>{
+  login(loginData: Login) : Observable<LoginResponse>{
     const endpoint = "/auth/login";
     return this.http.post<LoginResponse>(
       this.urlBase+endpoint,
@@ -38,10 +39,22 @@ export class RequestService {
     return this.http.get<Array<Plant>>(
       this.urlBase+endpoint,
       {
-        headers : { 'Authorization' : `Bearer ${token}` }
+        headers : { 'Authorization' : `Bearer ${token}`},
       }
     )
   }
 
-
+  postPlant(token: string | null, newPlant: CreatePlant){
+    const endpoint = "/plants/admin/save"
+    return this.http.post<Plant>(
+      this.urlBase+endpoint,
+      newPlant,
+      {
+        headers : { 
+          'Authorization' : `Bearer ${token}`,
+          'Content-Type' : 'application/json'
+        }
+      }
+    )
+  }
 }

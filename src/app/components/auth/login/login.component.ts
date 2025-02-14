@@ -35,8 +35,7 @@ export class LoginComponent {
   }
 
   onSubmit(){
-    this.requestService.loginEndpoint(this.loginForm.value).subscribe(data => {
-        const jsonResponse = JSON.parse(JSON.stringify(data));
+    this.requestService.login(this.loginForm.value).subscribe(data => {
         this.alertMessage = "Usuario logeado exitosamente";
         localStorage.setItem("token", data.token.jwt);
         this.cookieService.set("user", JSON.stringify(data.user), {path: "/", expires: new Date().getHours()+1});

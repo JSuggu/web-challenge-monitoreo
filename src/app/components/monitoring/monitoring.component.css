@@ -17,6 +17,7 @@
     flex-direction: column;
     min-height: 23rem;
     width: 100%;
+    height: 27rem;
     background-color: #fff;
     border-radius: 1rem;
     padding: 2rem;
@@ -51,9 +52,16 @@
 }
 
 .table-section {
+    width: 100%;
     border-collapse: collapse;
     border-spacing: 0, 1rem;
     margin-top: 1rem;
+}
+
+.table-section tr{
+    display: table;
+    width: 100%;
+    table-layout: fixed;
 }
 
 .table-section button {
@@ -65,15 +73,39 @@
     width: 10rem;
 }
 
-.table-section thead th {
+.table-head,
+.table-body {
+    display: block;
+}
+
+.table-head {
+    width: calc(100% - 1rem);
+}
+
+.table-head th {
     text-align: left;
 }
 
-.table-section thead img {
+.table-head img {
     width: 1rem;
     vertical-align: middle;
 }
 
+.table-body{
+    display: block;
+    height: 17rem;
+    width: 100%;
+    overflow-y: auto;
+    margin-top: 1rem;
+}
+
+.table-body tr {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
 
 tr.selected {
     background-color: var(--main-color-ligth);
@@ -86,23 +118,40 @@ tr.selected button {
     color: var(--main-color);
 }
 
-.table-section tbody img{
+.table-body img{
     width: 1rem;
 }
 
-.sensors-container {
+.sensors-container, .sensors-container section{
     display: flex;
     flex-direction: column;
     width: 100%;
     align-items: flex-start;
-    gap: 0.5rem;
+    gap: 0.3rem;
 }
 
 .sensors-grid {
     display: grid;
     width: 100%;
+    height: 14rem;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: auto;
     column-gap: 2rem;
     row-gap: 1rem;
+}
+
+.sensors-grid-empty {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 15.5rem;
+    border-radius: 1rem;
+    background-color: #fff;
+    margin-top: 0.3rem;
+}
+
+.sensors-grid-empty p {
+    align-self: center;
+    text-align: center;
+    font-weight: 500;
 }

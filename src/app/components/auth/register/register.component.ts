@@ -37,7 +37,7 @@ export class RegisterComponent {
     }
 
     onSubmit(){
-      this.requestService.registerEndpoint(this.registerForm.value).subscribe(data => {
+      this.requestService.register(this.registerForm.value).subscribe(data => {
         const jsonResponse = JSON.parse(JSON.stringify(data));
         this.alertMessage = jsonResponse.message;
         this.showAlert = true;

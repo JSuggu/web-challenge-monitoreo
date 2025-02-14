@@ -1,0 +1,30 @@
+<div class="form-plant-container">
+    <h3>Crear Planta</h3>
+    <form *ngIf="plantForm" [formGroup]="plantForm" (ngSubmit)="onSubmit()">
+        <div class="input-container">
+            <label for="name">Nombre de la planta</label>
+            <input type="text" id="name" name="name" formControlName="name" placeholder="Nombre">
+            <div *ngIf="name?.invalid && name?.touched">
+                <section *ngIf="name?.errors?.['required']">
+                    <span class="error-message"> El nombre es requerido</span>
+                </section>
+            </div>
+        </div>
+    
+        <div class="input-container">
+            <label for="country">Pais</label>
+            <input type="country" id="country" name="country" formControlName="country" placeholder="Pais">
+            <div *ngIf="country?.invalid && country?.touched">
+                <section *ngIf="country?.errors?.['required']">
+                    <span class="error-message"> El pais es requerido</span>
+                </section>
+            </div>
+        </div>
+
+        <div class="submit-container">
+            <button class="cancel-button" (click)="close()">Cancelar</button>
+            <button class="submit-button" type="submit" [disabled]="!plantForm.valid">Guardar planta</button>
+        </div>
+    </form>
+</div>
+<app-alert-card *ngIf="showAlert" [message]="alertMessage" (closeAlert)="onCloseAlert()"></app-alert-card>

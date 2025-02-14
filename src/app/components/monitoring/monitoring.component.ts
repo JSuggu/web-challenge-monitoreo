@@ -7,10 +7,11 @@ import { OperationsService } from '../../services/operations/operations.service'
 import { SensorCardComponent } from "../cards/sensor-card/sensor-card.component";
 import { RequestService } from '../../services/request/request.service';
 import { DataGlobalCard, TotalSumPlant } from '../../models/monitoring.interface';
+import { PlantFormCardComponent } from '../cards/plant-form-card/plant-form-card.component';
 
 @Component({
   selector: 'app-monitoring',
-  imports: [CommonModule, TotalCardComponent, TotalCardComponent, SensorCardComponent],
+  imports: [CommonModule, TotalCardComponent, TotalCardComponent, SensorCardComponent, PlantFormCardComponent],
   templateUrl: './monitoring.component.html',
   styleUrl: './monitoring.component.css'
 })
@@ -23,6 +24,7 @@ export class MonitoringComponent {
   selectedRow: number | null = null;
   selectedPlant: Plant | null = null;
   sensorsImage!: Array<string>;
+  savePlant: boolean = false;
 
   constructor(){
     afterRender(() => {
@@ -49,8 +51,14 @@ export class MonitoringComponent {
     } else {
       this.selectedRow = index;
       this.selectedPlant = this.plants[index];
-      console.log(this.selectedPlant);
     }
   }
 
+  addPlant(){
+    this.savePlant = this.savePlant == false? true : false;
+  }
+
+  onCloseForm(){
+    this.savePlant = false;
+  }
 }
