@@ -7,7 +7,7 @@
             <h4>Plantas</h4>
             <button (click)="addPlant()">+ Crear nueva planta</button>
         </div>
-        <app-plant-save-form *ngIf="isToPostPlant" (closeForm)="onCloseForm()"></app-plant-save-form>
+        <app-plant-save-form *ngIf="showFormToPostPlant" (closeForm)="onCloseForm()"></app-plant-save-form>
     </section>
     <table class="table-section">
         <thead class="table-head">
@@ -42,15 +42,15 @@
             <button (click)="deletePlant(selectedPlant)">Borrar planta</button>
         </section>
     </table>
+    <app-plant-update-form *ngIf="showFormUpdatePlant && selectedPlant" [selectedPlant]="selectedPlant" (closeForm)="onCloseForm()"></app-plant-update-form>
     <app-alert-card *ngIf="alertMessage" [message]="alertMessage" (closeAlert)="onCloseAlert()"></app-alert-card>
-    <app-plant-update-form *ngIf="isToUpdatePlant && selectedPlant" [selectedPlant]="selectedPlant" (closeForm)="onCloseForm()"></app-plant-update-form>
 </div>
 <div class="sensors-container">
     <h3>Monitoreo por plantas</h3>
     <section  *ngIf="selectedPlant; else notPlant">
         <h4>{{selectedPlant.country}}</h4>
         <div class="sensors-grid">
-            <app-sensor-card *ngFor="let sen of selectedPlant.sensors; let i = index" [image]="sensorsImage[i]" [sensor]="sen"></app-sensor-card>
+            <app-sensor-card *ngFor="let sensor of selectedPlant.sensors" [plantUuid]="this.selectedPlant.uuid" [sensor]="sensor" (updatedSensorCard)="renderUpdatedSensor($event)"></app-sensor-card>
         </div>
     </section>
     <ng-template #notPlant>

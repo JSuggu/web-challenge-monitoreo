@@ -3,3 +3,10 @@ export interface CreatePlant{
     country: string;
 }
 
+export interface UpdateSensor{
+    plantUuid: string,
+    readings: number,
+    averageAlerts: number,
+    redAlerts: number,
+    enabled: boolean
+}

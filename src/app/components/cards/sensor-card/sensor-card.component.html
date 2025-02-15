@@ -1,16 +1,16 @@
-<div *ngIf="sensor" class="sensor">
-    <section style="display: flex; flex-direction: column;">
+<button *ngIf="sensor && image" class="sensor" (click)="updateSensor()">
+    <section class="data-container">
         <h4>{{sensor.sensorType.name}}</h4>
-        <div style="gap: 5rem;">
-            <section>
+        <div>
+            <section class="data">
                 <img src="">
-                <span>{{sensor.reading}}</span>
+                <span>{{sensor.readings}}</span>
             </section>
-            <section>
+            <section class="data">
                 <img src="" >
                 <span>{{sensor.averageAlerts}}</span>
             </section>
-            <section>
+            <section class="data">
                 <img src="">
                 <span>{{sensor.redAlerts}}</span>
             </section>
@@ -19,4 +19,5 @@
     <section class="bg-image">
         <img src={{image}}>
     </section>
-</div>
+</button>
+<app-sensor-update-form *ngIf="showForm && plantUuid" [selectedSensor]="sensor" [plantUuid]="plantUuid" (updatedSensor)="getUpdatedSensor($event)" (closeForm)="onCloseForm()"></app-sensor-update-form>

@@ -13,7 +13,7 @@
     
         <div class="input-container">
             <label for="country">Pais</label>
-            <input type="country" id="country" name="country" formControlName="country" placeholder="Pais">
+            <input type="text" id="country" name="country" formControlName="country" placeholder="Pais">
             <div *ngIf="country?.invalid && country?.touched">
                 <section *ngIf="country?.errors?.['required']">
                     <span class="error-message"> El pais es requerido</span>

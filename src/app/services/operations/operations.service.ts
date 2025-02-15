@@ -6,7 +6,18 @@ import { SumTotalData, DataGlobalCard, TotalSumAllPlant, TotalSumPlant } from '.
   providedIn: 'root'
 })
 export class OperationsService {
-  constructor() {}
+  sensorsImages: Map<string, string> = new Map();
+
+  constructor() {
+    this.sensorsImages.set("temperatura", "assets/images/sensor/temperature.svg");
+    this.sensorsImages.set("presion", "assets/images/sensor/presion.svg");
+    this.sensorsImages.set("viento", "assets/images/sensor/wind.svg");
+    this.sensorsImages.set("niveles", "assets/images/sensor/levels.svg");
+    this.sensorsImages.set("energia", "assets/images/sensor/energy.svg");
+    this.sensorsImages.set("tension", "assets/images/sensor/tension.svg");
+    this.sensorsImages.set("monoxido de carbono", "assets/images/sensor/co2.svg");
+    this.sensorsImages.set("otros gases", "assets/images/sensor/other.svg");
+  }
 
   getSumTotalData(allPlants: Array<Plant>): SumTotalData{
     const listTotalSumByPlant: Array<TotalSumPlant> = new Array();
@@ -16,11 +27,11 @@ export class OperationsService {
 
     allPlants.forEach(plant => {
       plant.sensors.forEach(sensor => {
-        readings += sensor.reading;
+        readings += sensor.readings;
         averages += sensor.averageAlerts;
         reds += sensor.redAlerts;
 
-        totalReadings += sensor.reading;
+        totalReadings += sensor.readings;
         totalAverageAlerts += sensor.averageAlerts;
         totalRedAlerts += sensor.redAlerts;
         if(!sensor.enabled) sensorsDisabled++;
@@ -51,11 +62,7 @@ export class OperationsService {
     return total;
   }
 
-  loadImagesForSensors(): Array<string>{
-    const sensorsImages = new Array(
-      "assets/images/sensor/temperature.svg", "assets/images/sensor/presion.svg", "assets/images/sensor/wind.svg", "assets/images/sensor/levels.svg",
-      "assets/images/sensor/energy.svg", "assets/images/sensor/tension.svg", "assets/images/sensor/co2.svg", "assets/images/sensor/other.svg"
-    );
-    return sensorsImages;
+  loadImageForSensors(sensorTypeName:string): string | undefined{
+    return this.sensorsImages.get(sensorTypeName);
   }
 }

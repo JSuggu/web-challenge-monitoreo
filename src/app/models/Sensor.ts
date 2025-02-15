@@ -1,6 +1,6 @@
 export interface Sensor {
     id: number,
-    reading: number,
+    readings: number,
     averageAlerts: number,
     redAlerts: number,
     enabled: boolean,

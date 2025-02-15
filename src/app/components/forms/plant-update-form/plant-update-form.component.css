@@ -13,7 +13,6 @@
 .form-plant-container {
     display: flex;
     flex-direction: column;
-    width: 40rem;
     background-color: #fff;
     padding: 2rem;
     border-radius: 0.5rem;

@@ -25,15 +25,14 @@ export class MonitoringComponent {
   globalData: Array<DataGlobalCard> = new Array();
   selectedRow: number | null = null;
   selectedPlant: Plant | null = null;
-  sensorsImage!: Array<string>;
-  isToPostPlant: boolean = false;
-  isToUpdatePlant: boolean = false;
+  showFormToPostPlant: boolean = false;
+  showFormUpdatePlant: boolean = false;
   extraOptionPlant: boolean = false;
   alertMessage: string | null = null;
 
   constructor(){
     afterRender(() => {
-      let token = localStorage.getItem("token");
+      const token = localStorage.getItem("token");
       this.requestService.getPlants(token).subscribe( response => {
         this.plants = response;
         const {totalAllPlants, totalByPlants} = this.operationsService.getSumTotalData(response);
@@ -43,10 +42,6 @@ export class MonitoringComponent {
       error => {
         console.log(error);
       })})
-  }
-
-  ngOnInit(){
-    this.sensorsImage = this.operationsService.loadImagesForSensors();
   }
 
   selectRow(index: number) {
@@ -62,11 +57,11 @@ export class MonitoringComponent {
   }
 
   addPlant(){
-    this.isToPostPlant = this.isToPostPlant == false? true : false;
+    this.showFormToPostPlant = this.showFormToPostPlant == false? true : false;
   }
 
   editPlant(){
-    this.isToUpdatePlant = this.isToUpdatePlant == false? true : false;
+    this.showFormUpdatePlant = this.showFormUpdatePlant == false? true : false;
   }
 
   deletePlant(plant: Plant){
@@ -83,7 +78,15 @@ export class MonitoringComponent {
   }
 
   onCloseForm(){
-    this.isToPostPlant = false;
-    this.isToUpdatePlant = false;
+    this.showFormToPostPlant = false;
+    this.showFormUpdatePlant = false;
+  }
+
+  renderUpdatedSensor(updatedSensor: Sensor){
+    if (!this.selectedPlant) return;
+    const index = this.selectedPlant.sensors.findIndex(s => s.id === updatedSensor.id);
+      if (index !== -1) {
+        this.selectedPlant.sensors[index] = updatedSensor;
+    }
   }
 }

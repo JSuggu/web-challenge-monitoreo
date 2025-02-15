@@ -3,7 +3,8 @@ import { inject, Injectable } from '@angular/core';
 import { Login, LoginResponse, Register } from '../../models/auth.interface';
 import { Observable } from 'rxjs';
 import { Plant } from '../../models/Plant';
-import { CreatePlant } from '../../models/request.interface';
+import { CreatePlant, UpdateSensor } from '../../models/request.interface';
+import { Sensor } from '../../models/Sensor';
 
 @Injectable({
   providedIn: 'root'
@@ -74,11 +75,11 @@ export class RequestService {
     )
   }
 
-  updatePlant(token: string | null, plant: CreatePlant, plantUuid:string){
+  updatePlant(token: string | null, updatedPlant: CreatePlant, plantUuid:string){
     const endpoint = `/plants/admin/update/${plantUuid}`;
     return this.http.put<Plant>(
       this.urlBase+endpoint,
-      plant,
+      updatedPlant,
       {
         headers : { 
           'Authorization' : `Bearer ${token}`,
@@ -99,5 +100,19 @@ export class RequestService {
         }
       }
     );
+  }
+
+  updateSensor(token:string | null, updatedSensor: UpdateSensor ,id: number){
+    const endpoint = `/sensors/admin/update/${id}`;
+    return this.http.put<Sensor>(
+      this.urlBase+endpoint,
+      updatedSensor,
+      {
+        headers : {
+          'Authorization' : `Bearer ${token}`,
+          'Content-Type' : 'application/json'
+        }
+      }
+    )
   }
 }
