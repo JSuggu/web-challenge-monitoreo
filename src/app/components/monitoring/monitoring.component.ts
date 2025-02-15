@@ -9,10 +9,11 @@ import { RequestService } from '../../services/request/request.service';
 import { DataGlobalCard, TotalSumPlant } from '../../models/monitoring.interface';
 import { PlantFormCardComponent } from '../forms/plant-save-form/plant-save-form.component';
 import { PlantUpdateFormComponent } from "../forms/plant-update-form/plant-update-form.component";
+import { AlertCardComponent } from "../cards/alert-card/alert-card.component";
 
 @Component({
   selector: 'app-monitoring',
-  imports: [CommonModule, TotalCardComponent, TotalCardComponent, SensorCardComponent, PlantFormCardComponent, PlantUpdateFormComponent],
+  imports: [CommonModule, TotalCardComponent, TotalCardComponent, SensorCardComponent, PlantFormCardComponent, PlantUpdateFormComponent, AlertCardComponent],
   templateUrl: './monitoring.component.html',
   styleUrl: './monitoring.component.css'
 })
@@ -28,13 +29,14 @@ export class MonitoringComponent {
   isToPostPlant: boolean = false;
   isToUpdatePlant: boolean = false;
   extraOptionPlant: boolean = false;
+  alertMessage: string | null = null;
 
   constructor(){
     afterRender(() => {
       let token = localStorage.getItem("token");
-      this.requestService.getPlants(token).subscribe( data => {
-        this.plants = data;
-        const {totalAllPlants, totalByPlants} = this.operationsService.getSumTotalData(data);
+      this.requestService.getPlants(token).subscribe( response => {
+        this.plants = response;
+        const {totalAllPlants, totalByPlants} = this.operationsService.getSumTotalData(response);
         this.totalSumPlants = totalByPlants;
         this.globalData = this.operationsService.loadImagesForGlobalData(totalAllPlants);
       },
@@ -65,7 +67,20 @@ export class MonitoringComponent {
 
   editPlant(){
     this.isToUpdatePlant = this.isToUpdatePlant == false? true : false;
-  } 
+  }
+
+  deletePlant(plant: Plant){
+    if (window.confirm('¿Estás seguro de que quieres la planta?')){
+      const token = localStorage.getItem("token") || '';
+      this.requestService.deletePlant(token, plant.uuid).subscribe(response => {
+        this.alertMessage = response.message;
+      });
+    }
+  }
+
+  onCloseAlert(){
+    this.alertMessage = null;
+  }
 
   onCloseForm(){
     this.isToPostPlant = false;

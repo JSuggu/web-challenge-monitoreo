@@ -35,7 +35,7 @@ export class RequestService {
   }
 
   getPlants(token: string | null): Observable<Array<Plant>>{
-    const endpoint = "/plants/admin"
+    const endpoint = "/plants/admin";
     return this.http.get<Array<Plant>>(
       this.urlBase+endpoint,
       {
@@ -45,7 +45,7 @@ export class RequestService {
   }
 
   postPlant(token: string | null, newPlant: CreatePlant){
-    const endpoint = "/plants/admin/save"
+    const endpoint = "/plants/admin/save";
     return this.http.post<Plant>(
       this.urlBase+endpoint,
       newPlant,
@@ -59,7 +59,7 @@ export class RequestService {
   }
 
   addDefaultSensors(token: string | null, plantUuid: string){
-    const endpoint = "/sensors/admin/default-save"
+    const endpoint = "/sensors/admin/default-save";
     return this.http.post<Plant>(
       this.urlBase+endpoint,
       {
@@ -75,7 +75,7 @@ export class RequestService {
   }
 
   updatePlant(token: string | null, plant: CreatePlant, plantUuid:string){
-    const endpoint = `/plants/admin/update/${plantUuid}`
+    const endpoint = `/plants/admin/update/${plantUuid}`;
     return this.http.put<Plant>(
       this.urlBase+endpoint,
       plant,
@@ -86,5 +86,18 @@ export class RequestService {
         }
       }
     )
+  }
+
+  deletePlant(token:string, plantUuid: string){
+    const endpoint = `/plants/admin/delete/${plantUuid}`;
+    return this.http.delete<{message:string}>(
+      this.urlBase+endpoint,
+      {
+        headers : { 
+          'Authorization' : `Bearer ${token}`,
+          'Content-Type' : 'application/json'
+        }
+      }
+    );
   }
 }

@@ -37,11 +37,12 @@
                 </td>
             </tr>
         </tbody>
-        <section class="extra-option-plant" *ngIf="extraOptionPlant">
+        <section class="extra-option-plant" *ngIf="extraOptionPlant && selectedPlant">
             <button (click)="editPlant()">Editar planta</button>
-            <button>Borrar planta</button>
+            <button (click)="deletePlant(selectedPlant)">Borrar planta</button>
         </section>
     </table>
+    <app-alert-card *ngIf="alertMessage" [message]="alertMessage" (closeAlert)="onCloseAlert()"></app-alert-card>
     <app-plant-update-form *ngIf="isToUpdatePlant && selectedPlant" [selectedPlant]="selectedPlant" (closeForm)="onCloseForm()"></app-plant-update-form>
 </div>
 <div class="sensors-container">
