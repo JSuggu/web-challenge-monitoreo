@@ -3,13 +3,13 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { RequestService } from '../../../services/request/request.service';
 import { Plant } from '../../../models/Plant';
 import { NgIf } from '@angular/common';
-import { AlertCardComponent } from '../alert-card/alert-card.component';
+import { AlertCardComponent } from '../../cards/alert-card/alert-card.component';
 
 @Component({
-  selector: 'app-plant-form-card',
+  selector: 'app-plant-save-form',
   imports: [AlertCardComponent, FormsModule, ReactiveFormsModule, NgIf],
-  templateUrl: './plant-form-card.component.html',
-  styleUrl: './plant-form-card.component.css'
+  templateUrl: './plant-save-form.component.html',
+  styleUrl: './plant-save-form.component.css'
 })
 export class PlantFormCardComponent {
     @Input() selectedPlant: Plant | null = null;
@@ -30,9 +30,11 @@ export class PlantFormCardComponent {
   
     onSubmit(){
       const token = localStorage.getItem("token");
-      this.requestService.postPlant(token, this.plantForm.value).subscribe(data => {
+      this.requestService.postPlant(token, this.plantForm.value).subscribe(plantData => {
+        this.requestService.addDefaultSensors(token, plantData.uuid).subscribe(sensorsData => {
           this.alertMessage = "Planta añadida exitosamente";
           this.showAlert = true;
+        });
       }, error => {
           this.alertMessage = JSON.parse(JSON.stringify(error));
       });

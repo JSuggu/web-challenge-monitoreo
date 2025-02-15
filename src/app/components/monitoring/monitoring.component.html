@@ -7,7 +7,7 @@
             <h4>Plantas</h4>
             <button (click)="addPlant()">+ Crear nueva planta</button>
         </div>
-        <app-plant-form-card *ngIf="savePlant" (closeForm)="onCloseForm()"></app-plant-form-card>
+        <app-plant-save-form *ngIf="isToPostPlant" (closeForm)="onCloseForm()"></app-plant-save-form>
     </section>
     <table class="table-section">
         <thead class="table-head">
@@ -31,11 +31,18 @@
                     <button (click)="selectRow(i)">
                         {{ selectedRow === i ? 'Dejar de ver' : 'Ver planta' }}
                     </button>
-                    <button style="all: unset; cursor: pointer;"><img style="width: 2rem;" src="assets/images/edit.svg"></button>
+                    <button style="all: unset; cursor: pointer;" (click)="selectRow(i)">
+                        <img style="width: 2rem;" src="assets/images/edit.svg">
+                    </button>
                 </td>
             </tr>
         </tbody>
+        <section class="extra-option-plant" *ngIf="extraOptionPlant">
+            <button (click)="editPlant()">Editar planta</button>
+            <button>Borrar planta</button>
+        </section>
     </table>
+    <app-plant-update-form *ngIf="isToUpdatePlant && selectedPlant" [selectedPlant]="selectedPlant" (closeForm)="onCloseForm()"></app-plant-update-form>
 </div>
 <div class="sensors-container">
     <h3>Monitoreo por plantas</h3>

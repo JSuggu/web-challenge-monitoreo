@@ -57,4 +57,34 @@ export class RequestService {
       }
     )
   }
+
+  addDefaultSensors(token: string | null, plantUuid: string){
+    const endpoint = "/sensors/admin/default-save"
+    return this.http.post<Plant>(
+      this.urlBase+endpoint,
+      {
+        plantUuid
+      },
+      {
+        headers : { 
+          'Authorization' : `Bearer ${token}`,
+          'Content-Type' : 'application/json'
+        }
+      }
+    )
+  }
+
+  updatePlant(token: string | null, plant: CreatePlant, plantUuid:string){
+    const endpoint = `/plants/admin/update/${plantUuid}`
+    return this.http.put<Plant>(
+      this.urlBase+endpoint,
+      plant,
+      {
+        headers : { 
+          'Authorization' : `Bearer ${token}`,
+          'Content-Type' : 'application/json'
+        }
+      }
+    )
+  }
 }

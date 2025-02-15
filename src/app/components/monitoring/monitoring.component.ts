@@ -7,11 +7,12 @@ import { OperationsService } from '../../services/operations/operations.service'
 import { SensorCardComponent } from "../cards/sensor-card/sensor-card.component";
 import { RequestService } from '../../services/request/request.service';
 import { DataGlobalCard, TotalSumPlant } from '../../models/monitoring.interface';
-import { PlantFormCardComponent } from '../cards/plant-form-card/plant-form-card.component';
+import { PlantFormCardComponent } from '../forms/plant-save-form/plant-save-form.component';
+import { PlantUpdateFormComponent } from "../forms/plant-update-form/plant-update-form.component";
 
 @Component({
   selector: 'app-monitoring',
-  imports: [CommonModule, TotalCardComponent, TotalCardComponent, SensorCardComponent, PlantFormCardComponent],
+  imports: [CommonModule, TotalCardComponent, TotalCardComponent, SensorCardComponent, PlantFormCardComponent, PlantUpdateFormComponent],
   templateUrl: './monitoring.component.html',
   styleUrl: './monitoring.component.css'
 })
@@ -24,7 +25,9 @@ export class MonitoringComponent {
   selectedRow: number | null = null;
   selectedPlant: Plant | null = null;
   sensorsImage!: Array<string>;
-  savePlant: boolean = false;
+  isToPostPlant: boolean = false;
+  isToUpdatePlant: boolean = false;
+  extraOptionPlant: boolean = false;
 
   constructor(){
     afterRender(() => {
@@ -46,19 +49,26 @@ export class MonitoringComponent {
 
   selectRow(index: number) {
     if(this.selectedRow === index){
+      this.extraOptionPlant = false;
       this.selectedRow = null;
       this.selectedPlant = null;
     } else {
+      this.extraOptionPlant = true;
       this.selectedRow = index;
       this.selectedPlant = this.plants[index];
     }
   }
 
   addPlant(){
-    this.savePlant = this.savePlant == false? true : false;
+    this.isToPostPlant = this.isToPostPlant == false? true : false;
   }
 
+  editPlant(){
+    this.isToUpdatePlant = this.isToUpdatePlant == false? true : false;
+  } 
+
   onCloseForm(){
-    this.savePlant = false;
+    this.isToPostPlant = false;
+    this.isToUpdatePlant = false;
   }
 }

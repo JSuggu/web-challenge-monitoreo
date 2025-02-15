@@ -122,6 +122,23 @@ tr.selected button {
     width: 1rem;
 }
 
+.extra-option-plant {
+    display: flex;
+    position: absolute;
+    top: 15.6rem;
+    left: 110.3rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 12rem;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.extra-option-plant button {
+    border-radius: 0.5rem;
+}
+
 .sensors-container, .sensors-container section{
     display: flex;
     flex-direction: column;

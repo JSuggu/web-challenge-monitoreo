@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PlantFormCardComponent } from './plant-form-card.component';
+import { PlantFormCardComponent } from './plant-save-form.component';
 
 describe('PlantFormCardComponent', () => {
   let component: PlantFormCardComponent;
