@@ -42,7 +42,7 @@
 
         <div class="input-container">
             <label for="enabled">Estado</label>
-            <input type="text" id="enabled" name="enabled" formControlName="enabled" placeholder="Activado">
+            <input class="disabled-input" type="text" id="enabled" name="enabled" formControlName="enabled" placeholder="Activado" [readOnly]="true" tabindex="-1">
             <div *ngIf="averageAlerts?.invalid && averageAlerts?.touched">
                 <section *ngIf="averageAlerts?.errors?.['required']">
                     <span class="error-message"> El estado del sensor es requerido</span>

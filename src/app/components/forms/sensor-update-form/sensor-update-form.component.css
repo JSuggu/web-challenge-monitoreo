@@ -30,6 +30,11 @@
     flex-direction: column;
 }
 
+.disabled-input {
+    pointer-events: none;
+    background-color: #a7a7aa;
+}
+
 .submit-container {
     display: flex;
     justify-content: center;

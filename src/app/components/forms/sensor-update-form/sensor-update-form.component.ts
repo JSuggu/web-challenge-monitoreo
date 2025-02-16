@@ -56,7 +56,7 @@ export class SensorUpdateFormComponent {
   }
 
   close(){
-    this.sensorForm.reset({readings: this.readings, averageAlerts: this.averageAlerts, redAlerts: this.redAlerts, enabled: this.enabled});
+    this.sensorForm.reset({readings: this.selectedSensor.readings, averageAlerts: this.selectedSensor.averageAlerts, redAlerts: this.selectedSensor.redAlerts, enabled: this.selectedSensor.enabled});
     this.closeForm.emit();
   }
 

@@ -43,7 +43,7 @@ export class PlantUpdateFormComponent {
       }
   
       close(){
-        this.plantForm.reset({name: this.name, country: this.country});
+        this.plantForm.reset({name: this.selectedPlant.name, country: this.selectedPlant.country});
         this.closeUpdateForm.emit(undefined);
       }
     
