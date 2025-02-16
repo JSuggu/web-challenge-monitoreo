@@ -3,11 +3,11 @@ import { Plant } from '../../../models/Plant';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RequestService } from '../../../services/request/request.service';
 import { AlertCardComponent } from '../../cards/alert-card/alert-card.component';
-import { NgIf } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-plant-update-form',
-  imports: [AlertCardComponent, FormsModule, ReactiveFormsModule, NgIf],
+  imports: [CommonModule, AlertCardComponent, FormsModule, ReactiveFormsModule],
   templateUrl: './plant-update-form.component.html',
   styleUrl: './plant-update-form.component.css'
 })
@@ -19,15 +19,19 @@ export class PlantUpdateFormComponent {
       alertMessage!: string;
       showAlert: boolean = false;
       updatedPlant!: Plant;
+      countries: Array<any> = new Array<any>();
     
       constructor(){}
       
       ngOnInit(){
+        this.requestService.getCountries().subscribe((countriesData) => {
+          this.countries = countriesData.map(country => country.translations.spa.common).sort((countryA, countryB) => countryA.localeCompare(countryB));
         
-        this.plantForm = new FormGroup({
+          this.plantForm = new FormGroup({
             name: new FormControl(this.selectedPlant.name, Validators.required),
             country: new FormControl(this.selectedPlant.country, Validators.required)
           });
+        });
       }
     
       onSubmit(){

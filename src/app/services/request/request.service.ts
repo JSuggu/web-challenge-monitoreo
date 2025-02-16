@@ -11,9 +11,10 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class RequestService {
+  private urlBase = "http://localhost:8080/api";
+  private countryApiUrl = 'https://restcountries.com/v3.1/all';
   http = inject(HttpClient);
   router = inject(Router);
-  private urlBase = "http://localhost:8080/api";
   
   register(registerData: Register){
     const endpoint = "/auth/register";
@@ -153,6 +154,10 @@ export class RequestService {
       }
       return throwError(errorResponse);
     }));
+  }
+
+  getCountries(): Observable<any[]> {
+    return this.http.get<any[]>(this.countryApiUrl);
   }
 
   private getErrorType(errorResponse:HttpErrorResponse): string{

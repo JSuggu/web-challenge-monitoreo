@@ -2,13 +2,13 @@ import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RequestService } from '../../../services/request/request.service';
 import { Plant } from '../../../models/Plant';
-import { NgIf } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { AlertCardComponent } from '../../cards/alert-card/alert-card.component';
 import { Sensor, SensorType } from '../../../models/Sensor';
 
 @Component({
   selector: 'app-plant-save-form',
-  imports: [AlertCardComponent, FormsModule, ReactiveFormsModule, NgIf],
+  imports: [CommonModule, AlertCardComponent, FormsModule, ReactiveFormsModule],
   templateUrl: './plant-save-form.component.html',
   styleUrl: './plant-save-form.component.css'
 })
@@ -20,14 +20,20 @@ export class PlantFormCardComponent {
     alertMessage!: string;
     showAlert: boolean = false;
     savedPlant!: Plant;
+    countries: Array<any> = new Array<any>();
   
     constructor(){}
     
     ngOnInit(){
-      this.plantForm = new FormGroup({
+      this.requestService.getCountries().subscribe((countriesData) => {
+        this.countries = countriesData.map(country => country.translations.spa.common).sort((countryA, countryB) => countryA.localeCompare(countryB));
+
+        this.plantForm = new FormGroup({
           name: new FormControl('', Validators.required),
           country: new FormControl('', Validators.required)
         });
+
+      });
     }
   
     onSubmit(){

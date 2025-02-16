@@ -12,8 +12,13 @@
         </div>
     
         <div class="input-container">
-            <label for="country">Pais</label>
-            <input type="text" id="country" name="country" formControlName="country" placeholder="Pais">
+            <label for="country">País</label>
+            <select id="country" name="country" formControlName="country">
+                <option value="" style="color: #a7a7aa;">Selecciona un país</option>
+                <option *ngFor="let country of countries" [value]="country">
+                    {{ country}}
+                </option>
+            </select>
             <div *ngIf="country?.invalid && country?.touched">
                 <section *ngIf="country?.errors?.['required']">
                     <span class="error-message"> El pais es requerido</span>
