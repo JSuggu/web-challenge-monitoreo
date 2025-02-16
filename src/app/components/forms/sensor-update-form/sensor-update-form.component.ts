@@ -45,15 +45,17 @@ export class SensorUpdateFormComponent {
     }
 
     this.requestService.updateSensor(token, udaptedSensor, this.selectedSensor.id).subscribe(response => {
-        this.alertMessage = "Sensor actualizado"
-        this.showAlert = true;
-        this.updatedSensor.emit(response);
-    }, error => {
-      console.log(JSON.stringify(error));
+      this.alertMessage = "Sensor actualizado"
+      this.showAlert = true;
+      this.updatedSensor.emit(response);
+    }, errorResponse => {
+      this.alertMessage = errorResponse.error.message;
+      this.showAlert = true;
     })
   }
 
   close(){
+    this.sensorForm.reset({readings: this.readings, averageAlerts: this.averageAlerts, redAlerts: this.redAlerts, enabled: this.enabled});
     this.closeForm.emit();
   }
 

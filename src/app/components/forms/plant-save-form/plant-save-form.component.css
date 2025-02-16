@@ -44,6 +44,11 @@
     width: 10rem;
 }
 
+.submit-button:disabled {
+    background-color: #a7a7aa;
+    opacity: 0.9;
+}
+
 .cancel-button {
     cursor: pointer;
     background-color: #fff;

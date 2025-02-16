@@ -35,12 +35,14 @@ export class PlantFormCardComponent {
           this.alertMessage = "Planta añadida exitosamente";
           this.showAlert = true;
         });
-      }, error => {
-          this.alertMessage = JSON.parse(JSON.stringify(error));
+      }, errorResponse => {
+          this.alertMessage = errorResponse.error.message
+          this.showAlert = true;
       });
     }
 
     close(){
+      this.plantForm.reset({name:this.name, country:this.country})
       this.closeForm.emit();
     }
   

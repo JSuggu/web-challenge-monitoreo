@@ -73,6 +73,8 @@ export class MonitoringComponent {
       const token = localStorage.getItem("token") || '';
       this.requestService.deletePlant(token, plant.uuid).subscribe(response => {
         this.alertMessage = response.message;
+      }, errorResponse => {
+        this.alertMessage = errorResponse.error.message;
       });
     }
   }

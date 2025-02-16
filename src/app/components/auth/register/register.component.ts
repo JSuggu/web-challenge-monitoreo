@@ -37,18 +37,24 @@ export class RegisterComponent {
     }
 
     onSubmit(){
-      this.requestService.register(this.registerForm.value).subscribe(data => {
-        const jsonResponse = JSON.parse(JSON.stringify(data));
+      this.requestService.register(this.registerForm.value).subscribe(response => {
+        const jsonResponse = JSON.parse(JSON.stringify(response));
         this.alertMessage = jsonResponse.message;
         this.showAlert = true;
-      }, error => {
-        this.alertMessage = JSON.parse(JSON.stringify(error));
+      }, errorResponse => {
+        const error = errorResponse.error;
+        if(error.error == "DataIntegrityViolationException"){
+          const errorMessage: string =  error.message;
+          this.alertMessage = errorMessage.split("\n")[1].split("] [")[0];
+        } else {
+          this.alertMessage = error.message;
+        }
+        this.showAlert = true;
       });
     }
 
     onCloseAlert() {
       this.showAlert = false;
-      this.router.navigate(["/auth/login"]);
     }
 
     private passwordMatchValidator(control: AbstractControl): ValidationErrors | null{

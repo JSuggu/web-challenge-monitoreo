@@ -20,6 +20,7 @@ export class LoginComponent {
   requestService = inject(RequestService);
   alertMessage!: string;
   showAlert: boolean = false;
+  responseStatus!: number;
 
   constructor(private route :ActivatedRoute, private router: Router, private cookieService: CookieService){}
 
@@ -35,19 +36,24 @@ export class LoginComponent {
   }
 
   onSubmit(){
-    this.requestService.login(this.loginForm.value).subscribe(data => {
-        this.alertMessage = "Usuario logeado exitosamente";
-        localStorage.setItem("token", data.token.jwt);
-        this.cookieService.set("user", JSON.stringify(data.user), {path: "/", expires: new Date().getHours()+1});
-        this.showAlert = true;
-    }, error => {
-        this.alertMessage = JSON.parse(JSON.stringify(error));
+    this.requestService.login(this.loginForm.value).subscribe(response => {
+      this.alertMessage = "Usuario logeado exitosamente";
+      localStorage.setItem("token", response.token.jwt);
+      this.cookieService.set("user", JSON.stringify(response.user), {path: "/", expires: new Date().getHours()+1});
+      this.showAlert = true;
+      this.responseStatus = 200;
+    }, errorResponse => {
+      this.responseStatus = errorResponse.status;
+      this.alertMessage = errorResponse.error.message;
+      this.showAlert = true;
     });
   }
 
   onCloseAlert() {
     this.showAlert = false;
-    this.router.navigateByUrl('/app/plants');
+    if(this.responseStatus < 300){
+      this.router.navigateByUrl('/app/plants');
+    }
   }
 
   get username() {
