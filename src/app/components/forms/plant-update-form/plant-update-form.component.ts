@@ -35,7 +35,7 @@ export class PlantUpdateFormComponent {
           this.alertMessage = "Planta actualizada exitosamente";
           this.showAlert = true;
         }, errorResponse => {
-            this.alertMessage = errorResponse.error.message || errorResponse.error.body.message;
+            this.alertMessage = errorResponse.error.message;
             this.showAlert = true;
         });
       }

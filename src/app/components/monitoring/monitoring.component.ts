@@ -46,7 +46,7 @@ export class MonitoringComponent {
         this.globalData = this.operationsService.loadImagesForGlobalData(totalAllPlants);
       },
       errorResponse => {
-        this.alertMessage = errorResponse.error.message || errorResponse.error.body.message;
+        this.alertMessage = errorResponse.error.message;
       })
     }
   }
@@ -77,12 +77,11 @@ export class MonitoringComponent {
       this.requestService.deletePlant(token, plant.uuid).subscribe(response => {
         this.alertMessage = response.message;
       }, errorResponse => {
-        const posibleMessage: string = errorResponse.error.body.message || '';
-        if(posibleMessage.includes("Jwt") || posibleMessage.includes("jwt")){
-          this.alertMessage = posibleMessage;
-        } else {
-          this.alertMessage = errorResponse.error.message || posibleMessage;
+        if(errorResponse.status === 403){
+          this.alertMessage = "No tienes permisos para esta ruta";
+          return;
         }
+        this.alertMessage = errorResponse.error.message
       });
     }
   }

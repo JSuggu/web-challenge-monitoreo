@@ -152,13 +152,12 @@ export class RequestService {
   }
 
   private getErrorType(errorResponse:HttpErrorResponse): string{
-    return errorResponse.error.body.error;
+    return errorResponse.error.error;
   }
 
   private handleTokenExpiration() {
     localStorage.removeItem("token");
     window.alert("El token ha expirado");
     this.router.navigate(["/auth/login"]);
-    
   }
 }
