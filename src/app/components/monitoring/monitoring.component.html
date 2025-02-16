@@ -1,7 +1,7 @@
 <div class="total-data-container" *ngIf="globalData?.length === 4">
-    <app-total-card  *ngFor="let item of globalData" [key]="item.key" [title]="item.title" [value]="item.value" [imgSrc]="item.img"></app-total-card>
+    <app-total-card *ngFor="let item of globalData" [key]="item.key" [title]="item.title" [value]="item.value" [imgSrc]="item.img"></app-total-card>
 </div>
-<div class="plants-container">
+<div *ngIf="plants" class="plants-container">
     <section class="table-header">
         <div>
             <h4>Plantas</h4>

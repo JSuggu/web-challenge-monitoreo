@@ -1,6 +1,6 @@
-import { afterRender, Component, inject } from '@angular/core';
+import { afterRender, Component, Inject, inject, PLATFORM_ID } from '@angular/core';
 import { Plant } from '../../models/Plant';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { TotalCardComponent } from "../cards/total-card/total-card.component";
 import { Sensor, SensorType } from '../../models/Sensor';
 import { OperationsService } from '../../services/operations/operations.service';
@@ -30,8 +30,10 @@ export class MonitoringComponent {
   extraOptionPlant: boolean = false;
   alertMessage: string | null = null;
 
-  constructor(){
-    afterRender(() => {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object){}
+
+  ngOnInit(){
+    if(isPlatformBrowser(this.platformId)){
       const token = localStorage.getItem("token");
       this.requestService.getPlants(token).subscribe( response => {
         this.plants = response;
@@ -41,7 +43,9 @@ export class MonitoringComponent {
       },
       error => {
         console.log(error);
-      })})
+      })
+    }
+    
   }
 
   selectRow(index: number) {

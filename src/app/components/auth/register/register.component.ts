@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { InfoComponent } from "../info/info.component";
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NgIf } from '@angular/common';
-import { first } from 'rxjs';
+import { first, timeout } from 'rxjs';
 import { RequestService } from '../../../services/request/request.service';
 import { AlertCardComponent } from '../../cards/alert-card/alert-card.component';
 
@@ -21,7 +21,7 @@ export class RegisterComponent {
     alertMessage!: string;
     showAlert: boolean = false;
   
-    constructor(private route :ActivatedRoute){}
+    constructor(private route :ActivatedRoute, private router: Router){}
   
     ngOnInit(){
       this.route.url.pipe(first()).subscribe(segments => {
@@ -48,6 +48,7 @@ export class RegisterComponent {
 
     onCloseAlert() {
       this.showAlert = false;
+      this.router.navigate(["/auth/login"]);
     }
 
     private passwordMatchValidator(control: AbstractControl): ValidationErrors | null{

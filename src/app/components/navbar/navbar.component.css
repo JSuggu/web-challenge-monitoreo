@@ -6,6 +6,12 @@
     gap: 5rem;
 }
 
+.menu button {
+    cursor: pointer;
+    border: 0;
+    background-color: transparent;
+}
+
 .icon-container {
     display: flex;
     flex-direction: column;

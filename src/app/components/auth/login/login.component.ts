@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { InfoComponent } from "../info/info.component";
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { first } from 'rxjs';
@@ -21,7 +21,7 @@ export class LoginComponent {
   alertMessage!: string;
   showAlert: boolean = false;
 
-  constructor(private route :ActivatedRoute, private cookieService: CookieService){}
+  constructor(private route :ActivatedRoute, private router: Router, private cookieService: CookieService){}
 
   ngOnInit(){
     this.route.url.pipe(first()).subscribe(segments => {
@@ -47,6 +47,7 @@ export class LoginComponent {
 
   onCloseAlert() {
     this.showAlert = false;
+    this.router.navigateByUrl('/app/plants');
   }
 
   get username() {

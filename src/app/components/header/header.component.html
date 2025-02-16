@@ -1,9 +1,9 @@
 <div class="header-data-container">
     <h2 class="section-title">Monitoreo Global</h2>
     <section class="user-menu">
-        <img class="header-icon" src="assets/images/user/world-user.svg" alt="world-user">
-        <img class="header-icon" src="assets/images/user/config.svg" alt="config">
-        <img class="header-icon" src="assets/images/user/notification.svg" alt="notification">
-        <span> Username </span>
+        <button><img class="header-icon" src="assets/images/user/world-user.svg" alt="world-user"></button>
+        <button><img class="header-icon" src="assets/images/user/config.svg" alt="config"></button>
+        <button><img class="header-icon" src="assets/images/user/notification.svg" alt="notification"></button>
+        <span *ngIf="loggedUsername">{{loggedUsername}} </span>
     </section>
 </div>

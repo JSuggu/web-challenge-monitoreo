@@ -9,6 +9,11 @@
     font-weight: 500;
 }
 
+.header-data-container button {
+    cursor: pointer;
+    border: 0;
+    background-color: transparent;
+}
 
 .user-menu {
     display: flex;
