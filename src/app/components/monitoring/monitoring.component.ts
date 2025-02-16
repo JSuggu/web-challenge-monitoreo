@@ -1,4 +1,4 @@
-import { afterRender, Component, Inject, inject, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, inject, PLATFORM_ID } from '@angular/core';
 import { Plant } from '../../models/Plant';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { TotalCardComponent } from "../cards/total-card/total-card.component";
@@ -10,6 +10,8 @@ import { DataGlobalCard, TotalSumPlant } from '../../models/monitoring.interface
 import { PlantFormCardComponent } from '../forms/plant-save-form/plant-save-form.component';
 import { PlantUpdateFormComponent } from "../forms/plant-update-form/plant-update-form.component";
 import { AlertCardComponent } from "../cards/alert-card/alert-card.component";
+import { AuthService } from '../../services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-monitoring',
@@ -20,6 +22,7 @@ import { AlertCardComponent } from "../cards/alert-card/alert-card.component";
 export class MonitoringComponent {
   requestService = inject(RequestService);
   operationsService = inject(OperationsService);
+  authService = inject(AuthService);
   plants!: Array<Plant>;
   totalSumPlants!: Array<TotalSumPlant>;
   globalData: Array<DataGlobalCard> = new Array();
@@ -30,22 +33,22 @@ export class MonitoringComponent {
   extraOptionPlant: boolean = false;
   alertMessage: string | null = null;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object){}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private router: Router){}
 
   ngOnInit(){
     if(isPlatformBrowser(this.platformId)){
-      const token = localStorage.getItem("token");
-      this.requestService.getPlants(token).subscribe( response => {
+        if(!this.authService) this.router.navigate(["/auth/login"]);
+        const token = localStorage.getItem("token");
+        this.requestService.getPlants(token).subscribe( response => {
         this.plants = response;
         const {totalAllPlants, totalByPlants} = this.operationsService.getSumTotalData(response);
         this.totalSumPlants = totalByPlants;
         this.globalData = this.operationsService.loadImagesForGlobalData(totalAllPlants);
       },
-      error => {
-        console.log(error);
+      errorResponse => {
+        this.alertMessage = errorResponse.error.message || errorResponse.error.body.message;
       })
     }
-    
   }
 
   selectRow(index: number) {
@@ -74,7 +77,12 @@ export class MonitoringComponent {
       this.requestService.deletePlant(token, plant.uuid).subscribe(response => {
         this.alertMessage = response.message;
       }, errorResponse => {
-        this.alertMessage = errorResponse.error.message;
+        const posibleMessage: string = errorResponse.error.body.message || '';
+        if(posibleMessage.includes("Jwt") || posibleMessage.includes("jwt")){
+          this.alertMessage = posibleMessage;
+        } else {
+          this.alertMessage = errorResponse.error.message || posibleMessage;
+        }
       });
     }
   }

@@ -20,7 +20,7 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody class="table-body" *ngIf="plants && totalSumPlants">
+        <tbody class="table-body" *ngIf="totalSumPlants">
             <tr class="trb" *ngFor="let plant of plants; let i = index" [ngClass]="{'selected': selectedRow === i}">
                 <td>{{ plant.name }}</td>
                 <td>{{ plant.country }}</td>

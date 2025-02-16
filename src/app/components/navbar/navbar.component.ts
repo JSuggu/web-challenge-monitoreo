@@ -13,8 +13,10 @@ export class NavbarComponent {
   constructor(private router: Router, private cookieService: CookieService){}
 
   closeSesion(){
-    localStorage.removeItem('token');
-    this.cookieService.delete('user');
-    this.router.navigate(["/auth/login"]);
+    if(window.confirm("Estas seguro que quieres cerrar sesion?")){
+      localStorage.removeItem("token");
+      this.cookieService.delete("user");
+      this.router.navigate(["/auth/login"]);
+    }
   } 
 }

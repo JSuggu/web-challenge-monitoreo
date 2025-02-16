@@ -49,7 +49,7 @@ export class SensorUpdateFormComponent {
       this.showAlert = true;
       this.updatedSensor.emit(response);
     }, errorResponse => {
-      this.alertMessage = errorResponse.error.message;
+      this.alertMessage = errorResponse.error.message || errorResponse.error.body.message;;
       this.showAlert = true;
     })
   }

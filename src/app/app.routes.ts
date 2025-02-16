@@ -3,6 +3,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { MonitoringLayoutComponent } from './components/layouts/monitoring-layout/monitoring-layout.component';
 import { MonitoringComponent } from './components/monitoring/monitoring.component';
+import { authGuard } from './guards/auth/auth.guard';
 
 export const routes: Routes = [
     {path: '', component: LoginComponent},
@@ -14,9 +15,11 @@ export const routes: Routes = [
         ]
     },
     {
-        path: 'app', component: MonitoringLayoutComponent,
+        path: 'app', component: MonitoringLayoutComponent, 
+        canActivate: [authGuard],
         children: [
             {path: 'plants', component: MonitoringComponent}
         ]
-    }
+    },
+    {path: '**', redirectTo: 'auth/login'}
 ];

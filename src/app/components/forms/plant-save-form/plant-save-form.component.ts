@@ -36,7 +36,7 @@ export class PlantFormCardComponent {
           this.showAlert = true;
         });
       }, errorResponse => {
-          this.alertMessage = errorResponse.error.message
+          this.alertMessage = errorResponse.error.message || errorResponse.error.body.message;
           this.showAlert = true;
       });
     }
