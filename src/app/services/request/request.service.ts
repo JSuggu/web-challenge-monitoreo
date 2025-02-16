@@ -44,9 +44,13 @@ export class RequestService {
       {
         headers : { 'Authorization' : `Bearer ${token}`},
       }
-    ).pipe(catchError((error:HttpErrorResponse) => {
-      console.log(error);
-      return throwError(error);
+    ).pipe(catchError((errorResponse:HttpErrorResponse) => {
+      const errorType = this.getErrorType(errorResponse);
+      if(errorType.includes("Jwt")){
+        this.handleTokenExpiration();
+      }
+
+      return throwError(errorResponse);
     }));
   }
 
@@ -63,7 +67,7 @@ export class RequestService {
       }
     ).pipe(catchError((errorResponse:HttpErrorResponse) => {
       const errorType = this.getErrorType(errorResponse);
-      if(errorType.includes("Jwt") || errorType.includes("jwt")){
+      if(errorType.includes("Jwt")){
         this.handleTokenExpiration();
       }
       return throwError(errorResponse);
@@ -72,7 +76,7 @@ export class RequestService {
 
   addDefaultSensors(token: string | null, plantUuid: string){
     const endpoint = "/sensors/admin/default-save";
-    return this.http.post<Plant>(
+    return this.http.post<Array<Sensor>>(
       this.urlBase+endpoint,
       {
         plantUuid
@@ -85,7 +89,7 @@ export class RequestService {
       }
     ).pipe(catchError((errorResponse:HttpErrorResponse) => {
       const errorType = this.getErrorType(errorResponse);
-      if(errorType.includes("Jwt") || errorType.includes("jwt")){
+      if(errorType.includes("Jwt")){
         this.handleTokenExpiration();
       }
       return throwError(errorResponse);
@@ -105,7 +109,7 @@ export class RequestService {
       }
     ).pipe(catchError((errorResponse:HttpErrorResponse) => {
       const errorType = this.getErrorType(errorResponse);
-      if(errorType.includes("Jwt") || errorType.includes("jwt")){
+      if(errorType.includes("Jwt")){
         this.handleTokenExpiration();
       }
       return throwError(errorResponse);
@@ -124,7 +128,7 @@ export class RequestService {
       }
     ).pipe(catchError((errorResponse:HttpErrorResponse) => {
       const errorType = this.getErrorType(errorResponse);
-      if(errorType.includes("Jwt") || errorType.includes("jwt")){
+      if(errorType.includes("Jwt")){
         this.handleTokenExpiration();
       }
       return throwError(errorResponse);
@@ -144,7 +148,7 @@ export class RequestService {
       }
     ).pipe(catchError((errorResponse:HttpErrorResponse) => {
       const errorType = this.getErrorType(errorResponse);
-      if(errorType.includes("Jwt") || errorType.includes("jwt")){
+      if(errorType.includes("Jwt")){
         this.handleTokenExpiration();
       }
       return throwError(errorResponse);
@@ -157,7 +161,7 @@ export class RequestService {
 
   private handleTokenExpiration() {
     localStorage.removeItem("token");
-    window.alert("El token ha expirado");
+    window.alert("El token ha expirado o no es valido");
     this.router.navigate(["/auth/login"]);
   }
 }

@@ -13,11 +13,12 @@ import { NgIf } from '@angular/common';
 })
 export class PlantUpdateFormComponent {
       @Input() selectedPlant!: Plant;
-      @Output() closeForm = new EventEmitter<void>();
+      @Output() closeUpdateForm = new EventEmitter<Plant>();
       plantForm!: FormGroup;
       requestService = inject(RequestService);
       alertMessage!: string;
       showAlert: boolean = false;
+      updatedPlant!: Plant;
     
       constructor(){}
       
@@ -33,6 +34,7 @@ export class PlantUpdateFormComponent {
         const token = localStorage.getItem("token");
         this.requestService.updatePlant(token, this.plantForm.value, this.selectedPlant.uuid).subscribe(plantData => {
           this.alertMessage = "Planta actualizada exitosamente";
+          this.updatedPlant = plantData;
           this.showAlert = true;
         }, errorResponse => {
             this.alertMessage = errorResponse.error.message;
@@ -42,12 +44,12 @@ export class PlantUpdateFormComponent {
   
       close(){
         this.plantForm.reset({name: this.name, country: this.country});
-        this.closeForm.emit();
+        this.closeUpdateForm.emit(undefined);
       }
     
       onCloseAlert() {
         this.showAlert = false;
-        this.closeForm.emit();
+        this.closeUpdateForm.emit(this.updatedPlant);
       }
     
       get name() {

@@ -39,15 +39,15 @@ export class MonitoringComponent {
     if(isPlatformBrowser(this.platformId)){
         if(!this.authService) this.router.navigate(["/auth/login"]);
         const token = localStorage.getItem("token");
+
         this.requestService.getPlants(token).subscribe( response => {
         this.plants = response;
         const {totalAllPlants, totalByPlants} = this.operationsService.getSumTotalData(response);
         this.totalSumPlants = totalByPlants;
         this.globalData = this.operationsService.loadImagesForGlobalData(totalAllPlants);
-      },
-      errorResponse => {
+      }, errorResponse => {
         this.alertMessage = errorResponse.error.message;
-      })
+      });
     }
   }
 
@@ -63,11 +63,11 @@ export class MonitoringComponent {
     }
   }
 
-  addPlant(){
+  showAddPlant(){
     this.showFormToPostPlant = this.showFormToPostPlant == false? true : false;
   }
 
-  editPlant(){
+  showEditPlant(){
     this.showFormUpdatePlant = this.showFormUpdatePlant == false? true : false;
   }
 
@@ -83,6 +83,14 @@ export class MonitoringComponent {
         }
         this.alertMessage = errorResponse.error.message
       });
+
+      this.plants = this.plants.filter(item => item.uuid !== plant.uuid);
+
+      const {totalAllPlants, totalByPlants} = this.operationsService.getSumTotalData(this.plants);
+      this.totalSumPlants = totalByPlants;
+      this.globalData = this.operationsService.loadImagesForGlobalData(totalAllPlants);
+      this.selectedRow = null;
+      this.selectedPlant = null;
     }
   }
 
@@ -90,16 +98,36 @@ export class MonitoringComponent {
     this.alertMessage = null;
   }
 
-  onCloseForm(){
+  onCloseSaveForm(savedPlant: Plant){
     this.showFormToPostPlant = false;
+
+    if (!savedPlant) return;
+
+    this.plants.push(savedPlant);
+  }
+
+  onCloseUpdateForm(updatedPlant: Plant){
     this.showFormUpdatePlant = false;
+
+    if (!updatedPlant) return;
+
+    const index = this.plants.findIndex(p => p.uuid === updatedPlant.uuid);
+
+    if (index !== -1) {
+      this.plants[index] = updatedPlant;
+    }
   }
 
   renderUpdatedSensor(updatedSensor: Sensor){
     if (!this.selectedPlant) return;
     const index = this.selectedPlant.sensors.findIndex(s => s.id === updatedSensor.id);
-      if (index !== -1) {
-        this.selectedPlant.sensors[index] = updatedSensor;
+
+    if (index !== -1) {
+      this.selectedPlant.sensors[index] = updatedSensor;
     }
+  
+    const {totalAllPlants, totalByPlants} = this.operationsService.getSumTotalData(this.plants);
+    this.totalSumPlants = totalByPlants;
+    this.globalData = this.operationsService.loadImagesForGlobalData(totalAllPlants);
   }
 }

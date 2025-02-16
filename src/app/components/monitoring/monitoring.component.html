@@ -1,15 +1,15 @@
 <div class="total-data-container" *ngIf="globalData?.length === 4">
     <app-total-card *ngFor="let item of globalData" [key]="item.key" [title]="item.title" [value]="item.value" [imgSrc]="item.img"></app-total-card>
 </div>
-<div *ngIf="plants" class="plants-container">
+<div class="plants-container">
     <section class="table-header">
         <div>
             <h4>Plantas</h4>
-            <button (click)="addPlant()">+ Crear nueva planta</button>
+            <button type="button" (click)="showAddPlant()">+ Crear nueva planta</button>
         </div>
-        <app-plant-save-form *ngIf="showFormToPostPlant" (closeForm)="onCloseForm()"></app-plant-save-form>
+        <app-plant-save-form *ngIf="showFormToPostPlant" (closeSavedForm)="onCloseSaveForm($event)"></app-plant-save-form>
     </section>
-    <table class="table-section">
+    <table *ngIf="plants" class="table-section">
         <thead class="table-head">
             <tr>
                 <th>País</th>
@@ -38,16 +38,16 @@
             </tr>
         </tbody>
         <section class="extra-option-plant" *ngIf="extraOptionPlant && selectedPlant">
-            <button (click)="editPlant()">Editar planta</button>
-            <button (click)="deletePlant(selectedPlant)">Borrar planta</button>
+            <button type="button" (click)="showEditPlant()">Editar planta</button>
+            <button type="button" (click)="deletePlant(selectedPlant)">Borrar planta</button>
         </section>
     </table>
-    <app-plant-update-form *ngIf="showFormUpdatePlant && selectedPlant" [selectedPlant]="selectedPlant" (closeForm)="onCloseForm()"></app-plant-update-form>
+    <app-plant-update-form *ngIf="showFormUpdatePlant && selectedPlant" [selectedPlant]="selectedPlant" (closeUpdateForm)="onCloseUpdateForm($event)"></app-plant-update-form>
     <app-alert-card *ngIf="alertMessage" [message]="alertMessage" (closeAlert)="onCloseAlert()"></app-alert-card>
 </div>
 <div class="sensors-container">
     <h3>Monitoreo por plantas</h3>
-    <section  *ngIf="selectedPlant; else notPlant">
+    <section *ngIf="selectedPlant; else notPlant">
         <h4>{{selectedPlant.country}}</h4>
         <div class="sensors-grid">
             <app-sensor-card *ngFor="let sensor of selectedPlant.sensors" [plantUuid]="this.selectedPlant.uuid" [sensor]="sensor" (updatedSensorCard)="renderUpdatedSensor($event)"></app-sensor-card>
