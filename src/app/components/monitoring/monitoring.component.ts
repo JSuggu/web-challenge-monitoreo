@@ -130,4 +130,14 @@ export class MonitoringComponent {
     this.totalSumPlants = totalByPlants;
     this.globalData = this.operationsService.loadImagesForGlobalData(totalAllPlants);
   }
+
+  totalReadings(sensors: Array<Sensor>):number{
+    return sensors.reduce((acc, sensor) => acc + sensor.readings, 0);
+  }
+  totalAverageAlerts(sensors: Array<Sensor>):number{
+    return sensors.reduce((acc, sensor) => acc + sensor.averageAlerts, 0);
+  }
+  totalRedAlerts(sensors: Array<Sensor>):number{
+    return sensors.reduce((acc, sensor) => acc + sensor.redAlerts, 0);
+  }
 }

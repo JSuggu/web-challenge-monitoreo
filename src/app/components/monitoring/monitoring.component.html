@@ -24,9 +24,9 @@
             <tr class="trb" *ngFor="let plant of plants; let i = index" [ngClass]="{'selected': selectedRow === i}">
                 <td>{{ plant.name }}</td>
                 <td>{{ plant.country }}</td>
-                <td>{{ totalSumPlants[i].totalReadings }}</td>
-                <td>{{ totalSumPlants[i].totalAverageAlerts }}</td>
-                <td>{{ totalSumPlants[i].totalRedAlerts }}</td>
+                <td>{{totalReadings(plant.sensors)}}</td>
+                <td>{{totalAverageAlerts(plant.sensors)}}</td>
+                <td>{{totalRedAlerts(plant.sensors)}}</td>
                 <td style="display: flex; justify-self: flex-end; align-items: center; gap: 2rem;">
                     <button (click)="selectRow(i)">
                         {{ selectedRow === i ? 'Dejar de ver' : 'Ver planta' }}

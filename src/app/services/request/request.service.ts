@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class RequestService {
-  private urlBase = "http://localhost:8080/api";
+  private urlBase = /*"http://localhost:8080/api";*/ "https://api-monitoring-u70j.onrender.com/api";
   private countryApiUrl = 'https://restcountries.com/v3.1/all';
   http = inject(HttpClient);
   router = inject(Router);

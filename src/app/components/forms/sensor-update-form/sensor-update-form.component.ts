@@ -20,6 +20,7 @@ export class SensorUpdateFormComponent {
   requestService = inject(RequestService);
   alertMessage!: string;
   showAlert: boolean = false;
+  updatedSensorToSend!: Sensor;
   @Output() updatedSensor = new EventEmitter<Sensor>();
 
   constructor() {}
@@ -47,9 +48,8 @@ export class SensorUpdateFormComponent {
     this.requestService.updateSensor(token, udaptedSensor, this.selectedSensor.id).subscribe(response => {
       this.alertMessage = "Sensor actualizado"
       this.showAlert = true;
-      this.updatedSensor.emit(response);
+      this.updatedSensorToSend = response;
     }, errorResponse => {
-      console.log(errorResponse);
       this.alertMessage = errorResponse.error.message;;
       this.showAlert = true;
     })
@@ -62,6 +62,7 @@ export class SensorUpdateFormComponent {
 
   OnCloseAlert(){
     this.showAlert = false;
+    this.updatedSensor.emit(this.updatedSensorToSend);
     this.closeForm.emit();
   }
 
