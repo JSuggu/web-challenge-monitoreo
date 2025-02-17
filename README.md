@@ -1,59 +1,38 @@
-# Frontend
+# Web para la api de monitoreo
+Este proyecto fue generado [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
+## Dependencias
+Para instalar las dependencias
+```bash
+npm install
+```
 
-## Development server
-
-To start a local development server, run:
-
+## Despliegue del servidor
+Para iniciar el servidor local:
 ```bash
 ng serve
 ```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
 ```bash
-ng generate component component-name
+npm start
 ```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
+Una vez que el servidor esté en ejecución, abre tu navegador y navega a http://localhost:4200/. La aplicación se recargará automáticamente cada vez que modifiques alguno de los archivos fuente.
 
 ## Building
-
-To build the project run:
-
+Para hacer el build del proyeto:
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Rutas
+- Base: http://localhost:4200/ -> Redirecciona a login
+- Inicio de sesion: http://localhost:4200/auth/login 
+- Registro: http://localhost:4200/auth/register 
+- Zona monitoreo: http://localhost:4200/app/plants
 
-## Running unit tests
+## Link app desplegada
+- https://web-monitoring-one.vercel.app/
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Nota: Usuario de prueba
+Al inicializar la api esta agre un usuario prueba a la base de datos con las siguientes credenciales
+- Username: username
+- Password: username1234
